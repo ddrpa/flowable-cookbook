@@ -1,0 +1,26 @@
+{
+    "flowDirection": [
+        {
+            "key": "event_upgrade",
+            "label": "事件上报"
+        },
+        {
+            "key": "handle_on_this_level",
+            "label": "本级处理"
+        }
+    ],
+    "formControl": [
+        {
+            "onDirection": "event_upgrade",
+            "component": "textarea",
+            "key": "report_reason",
+            "label": "上报原因"
+        },
+        {
+            "onDirection": "handle_on_this_level",
+            "component": "textarea",
+            "key": "handle_details",
+            "label": "处理结果"
+        }
+    ]
+}

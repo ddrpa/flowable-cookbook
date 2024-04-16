@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1d2hcmz" targetNamespace="http://bpmn.io/schema/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" exporter="Camunda Modeler" exporterVersion="5.20.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
+  <bpmn:process id="usage_of_custom_bean_and_function_juel" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1bqewih</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_1bxvpbn" camunda:assignee="tom" camunda:dueDate="${customCalendarService.dueDateInWorkDays(execution, &#39;P7D&#39;)}">
+      <bpmn:incoming>Flow_1bqewih</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vkwhr5</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1bqewih" sourceRef="StartEvent_1" targetRef="Activity_1bxvpbn" />
+    <bpmn:endEvent id="Event_1pa78b5">
+      <bpmn:incoming>Flow_1yscgz5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1yscgz5" sourceRef="Activity_0d4kcyz" targetRef="Event_1pa78b5" />
+    <bpmn:userTask id="Activity_0d4kcyz" camunda:assignee="jerry" camunda:dueDate="${calendar:dueDateInWorkDays(&#39;P14D&#39;)}">
+      <bpmn:incoming>Flow_0vkwhr5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1yscgz5</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0vkwhr5" sourceRef="Activity_1bxvpbn" targetRef="Activity_0d4kcyz" />
+    <bpmn:textAnnotation id="TextAnnotation_1utaa06">
+      <bpmn:text>在 JUEL 表达式中调用 Bean 方法</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_19flsl8" sourceRef="Activity_1bxvpbn" targetRef="TextAnnotation_1utaa06" />
+    <bpmn:textAnnotation id="TextAnnotation_1wsm8jn">
+      <bpmn:text>在 JUEL 表达式中调用静态方法</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0gdpe6j" sourceRef="Activity_0d4kcyz" targetRef="TextAnnotation_1wsm8jn" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="usage_of_custom_bean_and_function_juel">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="182" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bxvpbn_di" bpmnElement="Activity_1bxvpbn">
+        <dc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1pa78b5_di" bpmnElement="Event_1pa78b5">
+        <dc:Bounds x="416" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0d4kcyz_di" bpmnElement="Activity_0d4kcyz">
+        <dc:Bounds x="260" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1utaa06_di" bpmnElement="TextAnnotation_1utaa06">
+        <dc:Bounds x="390" y="89" width="88" height="62" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1wsm8jn_di" bpmnElement="TextAnnotation_1wsm8jn">
+        <dc:Bounds x="160" y="200" width="80" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1bqewih_di" bpmnElement="Flow_1bqewih">
+        <di:waypoint x="218" y="120" />
+        <di:waypoint x="260" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1yscgz5_di" bpmnElement="Flow_1yscgz5">
+        <di:waypoint x="360" y="230" />
+        <di:waypoint x="416" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vkwhr5_di" bpmnElement="Flow_0vkwhr5">
+        <di:waypoint x="310" y="160" />
+        <di:waypoint x="310" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_19flsl8_di" bpmnElement="Association_19flsl8">
+        <di:waypoint x="360" y="116" />
+        <di:waypoint x="390" y="113" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0gdpe6j_di" bpmnElement="Association_0gdpe6j">
+        <di:waypoint x="260" y="223" />
+        <di:waypoint x="240" y="220" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

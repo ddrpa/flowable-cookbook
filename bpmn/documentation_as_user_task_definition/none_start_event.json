@@ -1,0 +1,43 @@
+{
+    "flowDirection": [
+        {
+            "key": "event_report",
+            "label": "事件上报"
+        }
+    ],
+    "handler": [
+        {
+            "handlerClass": "cc.ddrpa.playground.vikare.handler.CascadeAreaSelectorHandler",
+            "method": "getLastObjectOfList",
+            "bucket": "event_report_area"
+        }, {
+            "handlerClass": "cc.ddrpa.playground.vikare.handler.CascadeAreaSelectorHandler",
+            "method": "getAreaDivisionLevel",
+            "bucket": "event_report_division"
+        }
+    ],
+    "formControl": [
+        {
+            "onDirection": "global",
+            "component": "cascade-area-selector",
+            "key": "cascade-area-selector",
+            "label": "事件发生地点",
+            "dataURL": "https://api.vikare.com/v1/cascade-area-selector/area"
+        },
+        {
+            "onDirection": "global",
+            "component": "textarea",
+            "key": "eventDetails",
+            "label": "事件详情",
+            "maxSize": 500
+
+        },
+        {
+            "onDirection": "global",
+            "component": "file_upload",
+            "key": "fileUploadURL",
+            "label": "附件",
+            "uploadBucket": "upload-bucket"
+        }
+    ]
+}

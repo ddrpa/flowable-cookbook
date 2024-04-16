@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1d2hcmz" targetNamespace="http://bpmn.io/schema/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" exporter="Camunda Modeler" exporterVersion="5.20.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
+  <bpmn:process id="multi_groups_cosigning" isExecutable="false">
+    <bpmn:documentation>多用户组类会签</bpmn:documentation>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0ozbp8q</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_0jnssz6" camunda:candidateGroups="${workgroup}">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0ozbp8q</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fyok7t</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="${workgroups}" camunda:elementVariable="workgroup">
+        <bpmn:completionCondition xsi:type="bpmn:tFormalExpression">${nrOfInstances==nrOfCompletedInstances}</bpmn:completionCondition>
+      </bpmn:multiInstanceLoopCharacteristics>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0ozbp8q" sourceRef="StartEvent_1" targetRef="Activity_0jnssz6" />
+    <bpmn:endEvent id="Event_1xpic2j">
+      <bpmn:incoming>Flow_1j5a7t9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1j5a7t9" sourceRef="Activity_0uts4ro" targetRef="Event_1xpic2j" />
+    <bpmn:userTask id="Activity_0uts4ro" camunda:assignee="tom">
+      <bpmn:incoming>Flow_0fyok7t</bpmn:incoming>
+      <bpmn:outgoing>Flow_1j5a7t9</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0fyok7t" sourceRef="Activity_0jnssz6" targetRef="Activity_0uts4ro" />
+    <bpmn:textAnnotation id="TextAnnotation_0dyw2bb">
+      <bpmn:text>每个用户组中都需要有用户完成任务才会进入下个环节</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_10we646" sourceRef="Activity_0jnssz6" targetRef="TextAnnotation_0dyw2bb" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="multi_groups_cosigning">
+      <bpmndi:BPMNShape id="TextAnnotation_0dyw2bb_di" bpmnElement="TextAnnotation_0dyw2bb">
+        <dc:Bounds x="390" y="85" width="100" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="173" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jnssz6_di" bpmnElement="Activity_0jnssz6">
+        <dc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1xpic2j_di" bpmnElement="Event_1xpic2j">
+        <dc:Bounds x="422" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0uts4ro_di" bpmnElement="Activity_0uts4ro">
+        <dc:Bounds x="260" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_10we646_di" bpmnElement="Association_10we646">
+        <di:waypoint x="360" y="112" />
+        <di:waypoint x="390" y="108" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ozbp8q_di" bpmnElement="Flow_0ozbp8q">
+        <di:waypoint x="209" y="120" />
+        <di:waypoint x="260" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1j5a7t9_di" bpmnElement="Flow_1j5a7t9">
+        <di:waypoint x="360" y="230" />
+        <di:waypoint x="422" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fyok7t_di" bpmnElement="Flow_0fyok7t">
+        <di:waypoint x="310" y="160" />
+        <di:waypoint x="310" y="190" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

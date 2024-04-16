@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1d2hcmz" targetNamespace="http://bpmn.io/schema/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" exporter="Camunda Modeler" exporterVersion="5.20.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
+  <bpmn:process id="transactions" isExecutable="false">
+    <bpmn:extensionElements>
+      <camunda:properties>
+        <camunda:property />
+      </camunda:properties>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1y5bba9</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_0ztdepj" name="用户下单">
+      <bpmn:incoming>Flow_1y5bba9</bpmn:incoming>
+      <bpmn:outgoing>Flow_0p1wboe</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1y5bba9" sourceRef="StartEvent_1" targetRef="Activity_0ztdepj" />
+    <bpmn:sequenceFlow id="Flow_0p1wboe" sourceRef="Activity_0ztdepj" targetRef="Activity_0wj0vl6" />
+    <bpmn:serviceTask id="Activity_0wj0vl6" name="库存扣减" camunda:delegateExpression="${adjustInventoryStockDelegate}">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="triggerable" value="true" />
+          <camunda:property name="async" value="true" />
+        </camunda:properties>
+        <camunda:field name="text">
+          <camunda:string>Hello World</camunda:string>
+        </camunda:field>
+        <camunda:field name="expr">
+          <camunda:expression>${action}</camunda:expression>
+        </camunda:field>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0p1wboe</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hkft26</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0iyxmpb" name="生成货运单" camunda:delegateExpression="${generateDeliveryOrderDelegate}">
+      <bpmn:incoming>Flow_1hkft26</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r25w5v</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1hkft26" sourceRef="Activity_0wj0vl6" targetRef="Activity_0iyxmpb" />
+    <bpmn:endEvent id="Event_0vzwtnk">
+      <bpmn:incoming>Flow_0r25w5v</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0r25w5v" sourceRef="Activity_0iyxmpb" targetRef="Event_0vzwtnk" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="transactions">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="212" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ztdepj_di" bpmnElement="Activity_0ztdepj">
+        <dc:Bounds x="280" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wj0vl6_di" bpmnElement="Activity_0wj0vl6">
+        <dc:Bounds x="420" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0iyxmpb_di" bpmnElement="Activity_0iyxmpb">
+        <dc:Bounds x="550" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0vzwtnk_di" bpmnElement="Event_0vzwtnk">
+        <dc:Bounds x="682" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1y5bba9_di" bpmnElement="Flow_1y5bba9">
+        <di:waypoint x="248" y="120" />
+        <di:waypoint x="280" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0p1wboe_di" bpmnElement="Flow_0p1wboe">
+        <di:waypoint x="380" y="120" />
+        <di:waypoint x="420" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hkft26_di" bpmnElement="Flow_1hkft26">
+        <di:waypoint x="520" y="120" />
+        <di:waypoint x="550" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r25w5v_di" bpmnElement="Flow_0r25w5v">
+        <di:waypoint x="650" y="120" />
+        <di:waypoint x="682" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
